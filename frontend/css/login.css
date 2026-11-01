@@ -1,0 +1,140 @@
+:root {
+  --primary-color: #004080;
+  --secondary-color: #143d6b;
+  --bg-color: #f5faff;
+  --text-color: #333;
+  --card-bg: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+footer {
+  text-align: center;
+  padding: 12px;
+  font-size: 0.9rem;
+  background: #f0f0f0;
+  color: #777;
+}
+
+main {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.login-card {
+  background-color: var(--card-bg);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  animation: fadeSlideIn 0.6s ease forwards;
+}
+
+.login-card h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin: 10px 0 5px;
+  color: var(--secondary-color);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+input {
+  padding: 10px;
+  border: 1.8px solid #E1E8F0;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+  box-shadow: 0 0 8px #A9CCE3;
+}
+
+button {
+  margin-top: 10px;
+  padding: 14px 0;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #143d6b;
+}
+
+#message {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #e74c3c;
+}
+
+.volver, .registrarse {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.volver a, .registrarse a {
+  color: var(--secondary-color);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.volver a:hover, .registrarse a:hover {
+  color: #143d6b;
+}
+
+/* Animación fade + slide */
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

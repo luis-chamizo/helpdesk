@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Dashboard | Helpdesk de Usuario</title>
+    <link rel="stylesheet" href="../css/style.css"> 
+    <link rel="stylesheet" href="../css/dashboard.css"> 
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <main class="container"> 
+        <div class="dashboard-main-content"> 
+            <h1 id="welcome-message" style="margin-bottom: 1.5rem;">Bienvenido, Usuario</h1>
+            <div id="message-area-global-dashboard-user" class="message-box" style="display: none;"></div>
+
+            <section class="dashboard-actions">
+                <button id="create-ticket-button" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16" style="margin-right: 8px;">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                    </svg>
+                    Crear Nuevo Ticket
+                </button>
+                <button id="refresh-tickets-button" class="btn btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16" style="margin-right: 8px;">
+                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                    </svg>
+                    Actualizar Mis Tickets
+                </button>
+            </section>
+
+            <section class="tickets-section card-like-section" style="margin-top: 2rem;"> <h2>Mis Tickets Reportados</h2>
+                <div id="loading-message" class="message-box info" style="display: none;">Cargando tus tickets...</div>
+                <div id="error-tickets-message" class="message-box error" style="display: none;">
+                    Error al cargar tus tickets. Por favor, intenta de nuevo más tarde.
+                </div>
+                <div id="no-tickets-message" class="message-box info" style="display: none; text-align: center;">
+                    No tienes tickets reportados aún. ¡<a href="crear_ticket.html" style="font-weight: bold; text-decoration: underline;">Crea uno</a> para que te ayudemos!
+                </div>
+                <div id="tickets-list" class="ticket-grid">
+                    </div>
+            </section>
+
+            <div style="text-align: center; margin-top: 2rem; margin-bottom: 1rem;">
+                 <a href="#" id="logout-link" class="btn btn-danger" style="min-width: 180px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16" style="margin-right: 8px;">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                    </svg>
+                    Cerrar sesión
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/dashboard_usuario.js"></script>
+    <script>
+        if (typeof window.loadComponent === 'function') {
+            window.loadComponent('header', '../components/header.html');
+            window.loadComponent('footer', '../components/footer.html');
+        } else {
+            console.error("Error: La función loadComponent de utils.js no está definida.");
+        }
+    </script>
+</body>
+</html>

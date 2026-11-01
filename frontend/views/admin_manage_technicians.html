@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Técnicos | Admin HelpDesk</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/form.css">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <style>
+        /* Estilos rápidos para la tabla y el modal (puedes moverlos a un CSS dedicado o a dashboard.css/form.css si son genéricos) */
+        .management-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+        .management-table th, .management-table td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+        .management-table th { background-color: var(--bg-color); font-weight: 600; }
+        .management-table .actions a, .management-table .actions button { margin-right: 0.5rem; cursor: pointer; }
+        .modal { display: none; position: fixed; z-index: 1050; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); align-items: center; justify-content: center;}
+        .modal-content { background-color: var(--surface-color); margin: auto; padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-lg); width: 90%; max-width: 600px; } /* Ancho máximo ajustado para más campos */
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
+        .modal-header h2 { margin: 0; font-size: 1.5rem; }
+        .close-modal-btn { font-size: 1.5rem; font-weight: bold; background: none; border: none; cursor: pointer; color: var(--text-color-muted); }
+        .close-modal-btn:hover { color: var(--text-color); }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <main class="container">
+        <div class="dashboard-main-content">
+            <div class="page-header">
+                <h1>Gestionar Personal Técnico</h1>
+                <a href="dashboard_tecnico.html" class="btn btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16" style="margin-right: 8px;"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg>
+                    Volver
+                </a>
+            </div>
+
+            <div id="message-area-technicians" class="message-box" style="display: none;"></div>
+
+            <div class="dashboard-actions" style="margin-bottom: 1.5rem; justify-content: flex-start;">
+                <button id="add-technician-btn" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16" style="margin-right: 8px;"><path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/><path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/></svg>
+                    Añadir Nuevo Técnico
+                </button>
+            </div>
+
+            <section class="card-like-section">
+                <h2>Listado de Técnicos</h2>
+                <div id="loading-technicians" class="message-box info" style="display: none;">Cargando técnicos...</div>
+                <div id="error-technicians" class="message-box error" style="display: none;">Error al cargar técnicos.</div>
+                <table id="technicians-table" class="management-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Completo</th>
+                            <th>Correo</th>
+                            <th>Especialidad</th>
+                            <th>Login</th>
+                            <th>Activo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="technicians-table-body">
+                        </tbody>
+                </table>
+                <p id="no-technicians" style="display: none; text-align: center; padding: 1rem;">No hay técnicos registrados para mostrar.</p>
+            </section>
+        </div>
+    </main>
+
+    <div id="technician-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title-technician">Añadir Nuevo Técnico</h2>
+                <button id="close-technician-modal-btn" class="close-modal-btn" aria-label="Cerrar">&times;</button>
+            </div>
+            <form id="technician-form">
+                <input type="hidden" id="id_tecnico" name="id_tecnico">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre_completo_tec">Nombre Completo:</label>
+                        <input type="text" id="nombre_completo_tec" name="nombre_completo" class="form-control" required maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="correo_tec">Correo Electrónico:</label>
+                        <input type="email" id="correo_tec" name="correo" class="form-control" required maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="especialidad_tec">Especialidad:</label>
+                        <input type="text" id="especialidad_tec" name="especialidad" class="form-control" required maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="usuario_login_tec">Nombre de Usuario (Login):</label>
+                        <input type="text" id="usuario_login_tec" name="usuario_login" class="form-control" required maxlength="30">
+                    </div>
+                    <div class="form-group">
+                        <label for="contrasena_tec">Contraseña:</label>
+                        <input type="password" id="contrasena_tec" name="contrasena" class="form-control">
+                        <small class="input-hint">Dejar en blanco si no se desea cambiar la contraseña existente (al editar).</small>
+                    </div>
+                     <div class="form-group">
+                        <label for="activo_tec">Estado Activo:</label>
+                        <select id="activo_tec" name="activo" class="form-control">
+                            <option value="S">Sí</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="message-area-modal-technician" class="message-box" style="display: none; margin-top: 1rem;"></div>
+                <div class="form-actions">
+                    <button type="submit" id="save-technician-btn" class="btn btn-primary">Guardar</button>
+                    <button type="button" id="cancel-technician-modal-btn" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/admin_manage_technicians.js"></script> <script>
+        if (typeof window.loadComponent === 'function') {
+            window.loadComponent('header', '../components/header.html');
+            window.loadComponent('footer', '../components/footer.html');
+        } else {
+            console.error("Error: loadComponent no está definido.");
+        }
+    </script>
+</body>
+</html>

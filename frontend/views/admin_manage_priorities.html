@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Prioridades | Admin HelpDesk</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/form.css">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <style>
+        /* Estilos rápidos (puedes moverlos a un CSS dedicado o reutilizar) */
+        .management-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+        .management-table th, .management-table td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+        .management-table th { background-color: var(--bg-color); font-weight: 600; }
+        .management-table .actions a { margin-right: 0.5rem; cursor: pointer; }
+        .modal { display: none; position: fixed; z-index: 1050; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); align-items: center; justify-content: center;}
+        .modal-content { background-color: var(--surface-color); margin: auto; padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-lg); width: 90%; max-width: 450px; } /* Ancho ajustado */
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
+        .modal-header h2 { margin: 0; font-size: 1.5rem; }
+        .close-modal-btn { font-size: 1.5rem; font-weight: bold; background: none; border: none; cursor: pointer; color: var(--text-color-muted); }
+        .close-modal-btn:hover { color: var(--text-color); }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <main class="container">
+        <div class="dashboard-main-content">
+            <div class="page-header">
+                <h1>Gestionar Prioridades de Tickets</h1>
+                <a href="dashboard_tecnico.html" class="btn btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16" style="margin-right: 8px;"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg>
+                    Volver
+                </a>
+            </div>
+
+            <div id="message-area-priorities" class="message-box" style="display: none;"></div>
+
+            <div class="dashboard-actions" style="margin-bottom: 1.5rem; justify-content: flex-start;">
+                <button id="add-priority-btn" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16" style="margin-right: 8px;"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/></svg>
+                    Añadir Nueva Prioridad
+                </button>
+            </div>
+
+            <section class="card-like-section">
+                <h2>Lista de Prioridades Existentes</h2>
+                <div id="loading-priorities" class="message-box info" style="display: none;">Cargando prioridades...</div>
+                <div id="error-priorities" class="message-box error" style="display: none;">Error al cargar prioridades.</div>
+                <table id="priorities-table" class="management-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre de Prioridad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="priorities-table-body">
+                        </tbody>
+                </table>
+                <p id="no-priorities" style="display: none; text-align: center; padding: 1rem;">No hay prioridades para mostrar.</p>
+            </section>
+        </div>
+    </main>
+
+    <div id="priority-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title-priority">Añadir Nueva Prioridad</h2>
+                <button id="close-priority-modal-btn" class="close-modal-btn" aria-label="Cerrar">&times;</button>
+            </div>
+            <form id="priority-form">
+                <input type="hidden" id="id_prioridad" name="id_prioridad">
+                <div class="form-group">
+                    <label for="nombre_prioridad_modal">Nombre de la Prioridad:</label>
+                    <input type="text" id="nombre_prioridad_modal" name="nombre_prioridad" class="form-control" required maxlength="10">
+                     <small class="input-hint">Ej: Baja, Media, Alta, Urgente (máx 10 caracteres).</small>
+                </div>
+                <div id="message-area-modal-priority" class="message-box" style="display: none; margin-top: 1rem;"></div>
+                <div class="form-actions">
+                    <button type="submit" id="save-priority-btn" class="btn btn-primary">Guardar</button>
+                    <button type="button" id="cancel-priority-modal-btn" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/admin_manage_priorities.js"></script> <script>
+        if (typeof window.loadComponent === 'function') {
+            window.loadComponent('header', '../components/header.html');
+            window.loadComponent('footer', '../components/footer.html');
+        } else {
+            console.error("Error: loadComponent no está definido.");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nuevo Ticket | Helpdesk</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/form.css"> 
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <main class="centered-page-container"> 
+        <div class="form-page-card"> 
+            <h1 style="font-size: 1.75rem; margin-bottom: 1.5rem;">Crear Nuevo Ticket</h1>
+            
+            <div id="message-area" class="message-box" style="display: none;"></div>
+            <form id="ticket-form">
+                <div class="form-group">
+                    <label for="titulo">Título del Ticket (breve y descriptivo):</label>
+                    <input type="text" id="titulo" name="titulo" maxlength="100" required
+                           placeholder="Ej: Problema con impresora - No imprime color">
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción Detallada del Problema:</label>
+                    <textarea id="descripcion" name="descripcion" rows="6" required
+                              placeholder="Describe el problema con el mayor detalle posible..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoría del Problema:</label>
+                    <select id="categoria" name="id_categoria" required> <option value="">Cargando categorías...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="prioridad">Prioridad Sugerida:</label>
+                    <select id="prioridad" name="id_prioridad" required> <option value="">Cargando prioridades...</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions" style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-primary btn-block">Enviar Ticket</button>
+                    <button type="button" id="cancel-ticket-button" class="btn btn-secondary btn-block">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/crear_ticket.js"></script>
+    <script>
+        if (typeof window.loadComponent === 'function') {
+            window.loadComponent('header', '../components/header.html');
+            window.loadComponent('footer', '../components/footer.html');
+        } else {
+            console.error("Error: loadComponent no está definido.");
+        }
+    </script>
+</body>
+</html>

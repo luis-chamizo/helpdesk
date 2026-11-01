@@ -1,0 +1,319 @@
+/* frontend/css/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #00509e; /* Azul principal, ligeramente ajustado */
+  --secondary-color: #1a759f; /* Un azul secundario más brillante */
+  --accent-color: #f79f1b; /* Un acento cálido (ej. naranja/amarillo) */
+  
+  --bg-color: #f8f9fa; /* Fondo general muy claro, casi blanco */
+  --surface-color: #ffffff; /* Para tarjetas y superficies elevadas */
+  --border-color: #dee2e6; /* Bordes sutiles */
+
+  --text-color: #212529; /* Texto principal oscuro */
+  --text-color-muted: #6c757d; /* Texto secundario/apagado */
+  --text-on-primary: #ffffff; /* Texto sobre color primario */
+  --text-on-secondary: #ffffff; /* Texto sobre color secundario */
+
+  --success-color: #28a745;
+  --warning-color: #ffc107; /* Un amarillo más brillante para advertencias */
+  --danger-color: #dc3545;
+  --info-color: #17a2b8; /* Un azul verdoso para información */
+
+  --success-bg: #d1e7dd; /* Fondos más claros para alertas */
+  --warning-bg: #fff3cd;
+  --danger-bg: #f8d7da;
+  --info-bg: #cff4fc;
+  
+  --font-family-sans-serif: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --border-radius-sm: 0.25rem; /* 4px */
+  --border-radius-md: 0.5rem;  /* 8px */
+  --border-radius-lg: 0.75rem; /* 12px */
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04); /* Sombras más suaves */
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-sans-serif);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: 16px; 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100vh; 
+}
+
+header {
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  padding: 1.25rem 1.5rem; 
+  text-align: center;
+  font-size: 1.5rem; 
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  position: sticky; 
+  top: 0;
+  z-index: 1020; /* Asegurar que esté sobre otros elementos sticky */
+}
+
+main {
+  flex-grow: 1; 
+  padding: 1.5rem; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+}
+
+.container { 
+    width: 100%;
+    max-width: 1200px; /* Ancho máximo para contenido principal */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem; /* Espacio lateral para pantallas pequeñas */
+    padding-right: 1rem;
+}
+
+/* Clase para centrar contenido en páginas como index, login, register */
+.centered-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Ocupa el espacio disponible en main */
+    width: 100%;
+}
+
+
+footer {
+  text-align: center;
+  padding: 1.25rem 1.5rem; /* Aumentado ligeramente el padding */
+  font-size: 0.875rem; 
+  background-color: var(--surface-color);
+  color: var(--text-color-muted);
+  border-top: 1px solid var(--border-color);
+  margin-top: auto; /* Esto es clave si body es flex */
+}
+
+/* Botones Globales - Estilo 2025 */
+.btn {
+  display: inline-flex; 
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* Espacio entre icono y texto */
+  padding: 0.625rem 1.25rem; 
+  font-family: inherit;
+  font-size: 0.9375rem; 
+  font-weight: 500; /* Ligeramente menos bold para un look más limpio */
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-md);
+  transition: all 0.15s ease-in-out; /* Transición más rápida */
+  user-select: none; 
+}
+.btn:focus-visible { 
+    outline: 3px solid color-mix(in srgb, var(--primary-color) 40%, transparent); /* Foco más sutil y moderno */
+    outline-offset: 1px;
+}
+.btn:disabled, .btn.disabled {
+    opacity: 0.5; /* Más opacidad para indicar que está deshabilitado */
+    cursor: not-allowed;
+    box-shadow: none; /* Sin sombra cuando está deshabilitado */
+    transform: none; /* Sin transformaciones cuando está deshabilitado */
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  /* box-shadow: var(--shadow-sm); No es necesario si el hover tiene buena sombra */
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--primary-color) 85%, black);
+  transform: translateY(-2px); /* Efecto sutil de elevación */
+  box-shadow: var(--shadow-md);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+
+.btn-secondary {
+  background-color: var(--surface-color);
+  color: var(--primary-color);
+  border-color: var(--border-color); 
+}
+.btn-secondary:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--primary-color) 10%, var(--surface-color)); 
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.btn-secondary:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+
+.btn-danger {
+  background-color: var(--danger-color);
+  color: var(--text-on-primary); 
+}
+.btn-danger:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--danger-color) 85%, black);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-accent {
+  background-color: var(--accent-color);
+  color: var(--text-color); 
+}
+.btn-accent:hover:not(:disabled) {
+    background-color: color-mix(in srgb, var(--accent-color) 85%, black);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-link {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--primary-color);
+    text-decoration: none; /* Subrayado solo al hover */
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    font-weight: 500;
+}
+.btn-link:hover:not(:disabled), .btn-link:focus-visible:not(:disabled) {
+    color: color-mix(in srgb, var(--primary-color) 80%, black);
+    text-decoration: underline;
+    background-color: transparent; /* Asegurar que no herede otros fondos */
+}
+
+.btn-sm { /* Modificador para botones más pequeños */
+    padding: 0.375rem 0.75rem; /* 6px 12px */
+    font-size: 0.8125rem; /* 13px */
+}
+
+.btn-block { 
+    display: flex; /* Usar flex para centrar contenido si es un bloque */
+    width: 100%;
+}
+
+/* Animaciones globales */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); } /* Rebote aún más sutil */
+}
+
+/* Message Box Global */
+.message-box {
+  padding: 0.875rem 1.25rem; 
+  margin-bottom: 1rem; 
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-md);
+  font-size: 0.9375rem; 
+  animation: fadeSlideIn 0.4s ease-out forwards; /* Animación al aparecer */
+  border-left-width: 4px; /* Borde izquierdo más pronunciado */
+  border-left-style: solid;
+}
+.message-box.info {
+  color: color-mix(in srgb, var(--info-color) 80%, black);
+  background-color: var(--info-bg);
+  border-left-color: var(--info-color); 
+}
+.message-box.success {
+  color: color-mix(in srgb, var(--success-color) 70%, black);
+  background-color: var(--success-bg);
+  border-left-color: var(--success-color);
+}
+.message-box.warning {
+  color: color-mix(in srgb, var(--warning-color) 75%, #000); 
+  background-color: var(--warning-bg);
+  border-left-color: var(--warning-color);
+}
+.message-box.error {
+  color: color-mix(in srgb, var(--danger-color) 80%, black);
+  background-color: var(--danger-bg);
+  border-left-color: var(--danger-color);
+}
+
+/* Estilos para la página de inicio (index.html) */
+.welcome-menu { 
+  background-color: var(--surface-color);
+  padding: 2.5rem; /* Más padding */
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  width: 100%;
+  max-width: 480px; /* Un poco más ancho */
+  animation: fadeSlideIn 0.5s ease-out 0.1s backwards; /* Ligero delay */
+}
+.welcome-menu .icon {
+  font-size: 3rem; 
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  animation: bounce 2.8s infinite ease-in-out;
+  animation-delay: 0.5s; /* Sincronizar con fadeSlideIn */
+}
+.welcome-menu h2 {
+  font-size: 1.875rem; /* 30px */
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+.welcome-menu p {
+  color: var(--text-color-muted);
+  margin-bottom: 2rem; /* Más espacio antes de los botones */
+  font-size: 1rem; 
+  line-height: 1.7;
+}
+.welcome-menu .form-actions { /* Para los botones en index.html */
+    flex-direction: column; /* Apilados por defecto */
+    gap: 0.75rem;
+}
+
+@media (min-width: 576px) { /* En pantallas un poco más grandes, botones en línea */
+    .welcome-menu .form-actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+    .welcome-menu .form-actions .btn {
+        min-width: 160px;
+    }
+}
+
+/* Utilidad para secciones con estilo de tarjeta */
+.card-like-section {
+    background-color: var(--surface-color);
+    padding: 1.5rem; /* 24px */
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 1.5rem; /* Espacio entre secciones */
+}
+.card-like-section h2 {
+    font-size: 1.5rem; /* 24px */
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 1.25rem; /* 20px */
+    padding-bottom: 0.75rem; /* 12px */
+    border-bottom: 1px solid var(--border-color);
+}

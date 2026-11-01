@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Usuario | HelpDesk</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/form.css" />
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <main class="centered-page-container">
+    <div class="form-page-card">
+      <div class="form-icon" style="font-size: 2.5rem;">👤➕</div>
+      <h2>Registrar Nuevo Usuario</h2>
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="nombre_completo">Nombre completo</label>
+          <input type="text" id="nombre_completo" name="nombre_completo" placeholder="Tu nombre completo" required />
+        </div>
+        <div class="form-group">
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required />
+        </div>
+        <div class="form-group">
+          <label for="telefono">Teléfono (10 dígitos)</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="Ej: 3001234567" required minlength="10" maxlength="10" pattern="\d{10}" title="Debe ser un número de teléfono de 10 dígitos."/>
+        </div>
+        <div class="form-group">
+          <label for="area">Área</label>
+          <select id="area" name="area" required>
+            <option value="" disabled selected>Seleccione su área funcional</option>
+            <option value="Sistemas">Sistemas</option>
+            <option value="Recursos Humanos">Recursos Humanos</option>
+            <option value="Finanzas">Finanzas</option>
+            <option value="Logística">Logística</option>
+            <option value="Ventas">Ventas</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Producción">Producción</option>
+            <option value="Atención al Cliente">Atención al Cliente</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="usuario_login">Nombre de usuario (4-30 caracteres, alfanumérico)</label>
+          <input type="text" id="usuario_login" name="usuario_login" placeholder="Elija un nombre de usuario" required minlength="4" maxlength="30" pattern="[a-zA-Z0-9]+" title="Solo letras y números, sin espacios."/>
+        </div>
+        <div class="form-group">
+          <label for="contrasena">Contraseña (mínimo 6 caracteres)</label>
+          <input type="password" id="contrasena" name="contrasena" placeholder="Cree una contraseña segura" required minlength="6" />
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+        </div>
+        <div id="message" class="message-box" style="display: none; margin-top: 1rem;"></div>
+      </form>
+      <div class="form-link-section">
+        <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+        <p><a href="index.html" class="btn-link">← Volver al inicio</a></p>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/auth/register.js"></script>
+  <script>
+    if (typeof window.loadComponent === 'function') {
+        window.loadComponent('header', '../components/header.html');
+        window.loadComponent('footer', '../components/footer.html');
+    } else {
+        console.error("Error: loadComponent no está definido.");
+    }
+  </script>
+</body>
+</html>

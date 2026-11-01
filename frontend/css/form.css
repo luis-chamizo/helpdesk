@@ -1,0 +1,199 @@
+/* frontend/css/form.css */
+/* Este archivo complementa style.css para estilizar formularios. */
+
+/* Contenedor para la página que aloja un formulario principal (login, register, crear_ticket) */
+/* Se usa dentro de <main class="container"> o <main class="centered-page-container"> */
+.form-page-card { /* Anteriormente llamado form-card, renombrado para claridad */
+    background-color: var(--surface-color);
+    padding: 2rem 2.5rem; /* Más padding horizontal */
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    animation: fadeSlideIn 0.5s ease-out forwards;
+    width: 100%;
+    max-width: 480px; /* Ancho máximo para el contenido del formulario */
+    margin-top: 1rem; /* Espacio si no está en centered-page-container */
+    margin-bottom: 1rem;
+}
+
+.form-page-card .form-icon {
+    font-size: 2.5rem; /* 40px */
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1.25rem; /* 20px */
+}
+
+.form-page-card h1, 
+.form-page-card h2 { /* Título dentro de la tarjeta de formulario */
+    text-align: center;
+    color: var(--text-color);
+    font-size: 1.625rem; /* 26px, un poco más pequeño que el h1 de página */
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1.75rem; /* 28px */
+}
+
+.form-group {
+    margin-bottom: 1.25rem; /* 20px */
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.875rem; /* 14px */
+    font-weight: 500; 
+    color: var(--text-color-muted);
+    margin-bottom: 0.5rem; /* 8px */
+}
+
+/* Estilo base para inputs, selects, textareas dentro de .form-group */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="tel"],
+.form-group input[type="url"],
+.form-group input[type="search"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group input[type="datetime-local"],
+.form-group select,
+.form-group textarea {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem; /* 12px 16px */
+    font-size: 0.9375rem; /* 15px */
+    font-family: inherit;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: var(--surface-color); /* Puede ser igual que la tarjeta o un blanco más puro */
+    background-clip: padding-box;
+    border: 1px solid var(--border-color);
+    appearance: none; /* Quita estilos nativos de select, etc. */
+    border-radius: var(--border-radius-md);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/* Placeholder styling */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-color-muted);
+    opacity: 0.7;
+}
+
+/* Estilo específico para la flecha del select */
+.form-group select { 
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); 
+    background-repeat: no-repeat;
+    background-position: right 0.875rem center; /* Ajustado padding-right */
+    background-size: 14px 10px; /* Ligeramente más pequeño */
+    padding-right: 2.75rem; /* Más espacio para la flecha */
+}
+.form-group select:disabled {
+    background-color: color-mix(in srgb, var(--border-color) 30%, transparent);
+    opacity: 0.7;
+}
+
+
+/* Estado de foco para inputs, selects, textareas */
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="tel"]:focus,
+.form-group input[type="url"]:focus,
+.form-group input[type="search"]:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="date"]:focus,
+.form-group input[type="datetime-local"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--primary-color) 25%, transparent);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px; 
+}
+
+/* Texto de ayuda o pista debajo de los inputs */
+.form-group .input-hint { 
+    display: block; /* Asegurar que ocupe su línea */
+    font-size: 0.8125rem; /* 13px */
+    color: var(--text-color-muted);
+    margin-top: 0.375rem; /* 6px */
+}
+
+/* Para validación de errores por campo (si JavaScript añade estas clases) */
+.form-group .error-message-field { /* Renombrado para evitar conflicto con .message-box */
+    display: block; /* Asegurar que ocupe su línea */
+    font-size: 0.8125rem;
+    color: var(--danger-color);
+    font-weight: 500; /* Para destacar el error */
+    margin-top: 0.375rem;
+}
+.form-group input.is-invalid, 
+.form-group select.is-invalid,
+.form-group textarea.is-invalid {
+    border-color: var(--danger-color);
+    /* Opcional: box-shadow rojo al ser inválido y tener foco */
+    /* &:focus {
+        box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--danger-color) 25%, transparent);
+    } */
+}
+.form-group input.is-valid, /* Para feedback de validez (opcional) */
+.form-group select.is-valid,
+.form-group textarea.is-valid {
+    border-color: var(--success-color);
+}
+
+
+/* Contenedor para los botones de acción del formulario */
+.form-actions { 
+    margin-top: 1.75rem; 
+    display: flex;
+    flex-direction: column; /* Botones apilados por defecto en móvil */
+    gap: 0.75rem; 
+}
+/* En desktop, los botones del formulario pueden ir en línea */
+@media (min-width: 576px) {
+    .form-actions {
+        flex-direction: row;
+        /* justify-content: flex-end; Si quieres alinear a la derecha */
+        /* justify-content: space-between; Si son dos y quieres espacio entre ellos */
+    }
+    .form-actions .btn {
+        flex-grow: 1; /* Para que ocupen el espacio disponible si son varios */
+    }
+    .form-actions .btn + .btn { /* Espacio entre botones si están en la misma línea */
+        margin-left: 0.75rem;
+    }
+     .form-actions .btn-block + .btn-block { /* Si son block, quitar margen izquierdo y usar gap */
+        margin-left: 0;
+    }
+}
+
+
+/* Sección para enlaces ("¿Ya tienes cuenta? Inicia sesión", "Volver") */
+.form-link-section { 
+  text-align: center;
+  margin-top: 1.5rem; 
+}
+.form-link-section p {
+    margin-bottom: 0.625rem; /* 10px */
+    font-size: 0.9375rem; 
+    color: var(--text-color); 
+}
+.form-link-section a, 
+.form-link-section .btn-link { /* Aplicar también a botones con clase .btn-link aquí */
+  color: var(--primary-color);
+  font-weight: 500; 
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+.form-link-section a:hover,
+.form-link-section a:focus,
+.form-link-section .btn-link:hover,
+.form-link-section .btn-link:focus {
+  text-decoration: underline;
+  color: color-mix(in srgb, var(--primary-color) 80%, black);
+}

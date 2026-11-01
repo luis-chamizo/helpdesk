@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Ticket | HelpDesk</title>
+    <link rel="stylesheet" href="../css/style.css"> 
+    <link rel="stylesheet" href="../css/dashboard.css"> 
+    <link rel="stylesheet" href="../css/form.css"> 
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <main class="container"> 
+        <div class="ver-ticket-main"> 
+            <div class="page-header">
+                <h1 id="ticket-titulo-principal">Detalle del Ticket</h1>
+                <a id="back-to-dashboard-btn" href="#" class="btn btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16" style="margin-right: 8px;"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg>
+                    Volver
+                </a>
+            </div>
+
+            <div id="message-area-ticket" class="message-box" style="display: none;"></div>
+            
+            <section id="ticket-details-section" class="card-like-section"> 
+                <h2>Información del Ticket <span id="ticket-id-display" class="text-color-muted" style="font-size: 0.9em;"></span></h2>
+                <div id="ticket-loader" class="message-box info" style="display: none;">Cargando detalles del ticket...</div>
+                <div class="ticket-info-grid">
+                    <p><strong>Estado:</strong> <span id="ticket-estado" class="status-badge">Cargando...</span></p>
+                    <p><strong>Prioridad:</strong> <span id="ticket-prioridad">Cargando...</span></p>
+                    <p><strong>Categoría:</strong> <span id="ticket-categoria">Cargando...</span></p>
+                    <p><strong>Creado por:</strong> <span id="ticket-usuario-reporta">Cargando...</span> (<span id="ticket-usuario-area"></span>)</p>
+                    <p><strong>Correo:</strong> <span id="ticket-usuario-correo">Cargando...</span></p>
+                    <p><strong>Técnico Asignado:</strong> <span id="ticket-tecnico-asignado">Cargando...</span></p>
+                    <p><strong>Fecha Creación:</strong> <span id="ticket-fecha-creacion">Cargando...</span></p>
+                    <p><strong>Última Actualización:</strong> <span id="ticket-fecha-actualizacion">Cargando...</span></p>
+                    <p><strong>Fecha Cierre:</strong> <span id="ticket-fecha-cierre">N/A</span></p>
+                </div>
+                <div class="ticket-description-full">
+                    <h3>Descripción del Problema:</h3>
+                    <p id="ticket-descripcion-completa" style="white-space: pre-wrap; min-height: 60px; padding: 0.75rem; background-color: var(--bg-color); border-radius: var(--border-radius-sm); border: 1px solid var(--border-color);">Cargando...</p>
+                </div>
+                
+                <div id="ticket-actions-area" class="ticket-actions-ver-ticket" style="display: none; flex-direction: column; gap: 1.5rem; margin-top:1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                    <div class="action-group form-group">
+                        <label for="select-new-status">Cambiar Estado del Ticket:</label>
+                        <div style="display: flex; gap: 0.75rem; align-items: center;">
+                            <select id="select-new-status" name="id_estado_nuevo" class="form-control" style="flex-grow:1; min-width: 150px;"></select>
+                            <button id="btn-update-status" class="btn btn-primary btn-sm">Actualizar Estado</button>
+                        </div>
+                    </div>
+                    <div id="assign-technician-action-group" class="action-group form-group"> 
+                        <label for="select-assign-technician">Asignar/Cambiar Técnico:</label>
+                        <div style="display: flex; gap: 0.75rem; align-items: center;">
+                            <select id="select-assign-technician" name="id_tecnico_nuevo" class="form-control" style="flex-grow:1; min-width: 150px;"></select>
+                            <button id="btn-assign-technician" class="btn btn-primary btn-sm">Asignar Técnico</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="comments-section" class="card-like-section" style="margin-top: 2rem;">
+                <h2>Comentarios</h2>
+                <div id="comments-loader" class="message-box info" style="display: none;">Cargando comentarios...</div>
+                <div id="comments-list" style="margin-bottom: 1.5rem;">
+                    </div>
+                
+                <div id="add-comment-area" style="display: block;"> <h3>Añadir Comentario</h3>
+                    <form id="add-comment-form">
+                        <div class="form-group">
+                            <label for="comentario_texto">Tu Comentario:</label>
+                            <textarea id="comentario_texto" name="comentario_texto" rows="4" required placeholder="Escribe tu comentario aquí..."></textarea>
+                        </div>
+                        <div class="form-actions" style="text-align: right;">
+                            <button type="submit" id="submit-comment-btn" class="btn btn-primary">Enviar Comentario</button>
+                        </div>
+                        <div id="message-area-comment" class="message-box" style="display: none; margin-top:1rem;"></div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/ver-ticket.js"></script> 
+    <script>
+        if (typeof window.loadComponent === 'function') {
+            window.loadComponent('header', '../components/header.html');
+            window.loadComponent('footer', '../components/footer.html');
+        } else {
+            console.error("Error: loadComponent no está definido.");
+        }
+    </script>
+</body>
+</html>

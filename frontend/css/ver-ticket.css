@@ -1,0 +1,187 @@
+/* frontend/css/ver-ticket.css */
+/* Estilos específicos para la página de detalle del ticket */
+
+.ver-ticket-main {
+    width: 100%;
+    /* max-width: 960px; /* Puedes ajustar el ancho máximo si lo deseas */
+    /* margin: 0 auto; /* Centrar si .container no se usa en main */
+}
+
+.ver-ticket-main .page-header { /* Contenedor para el H1 y el botón de volver */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Para que el botón caiga abajo en pantallas muy pequeñas */
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.ver-ticket-main .page-header h1 {
+    margin-bottom: 0; /* Quitar margen inferior del h1 si está en el flex container */
+    font-size: 1.8rem; /* Ajustar según style.css */
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* El botón #back-to-dashboard-btn usa clases .btn .btn-secondary de style.css */
+
+/* Secciones de detalles y comentarios pueden usar .card-like-section de style.css */
+/* #ticket-details-section, #comments-section { ... } */
+
+#ticket-details-section h2, 
+#comments-section h2 { /* Ya estilizados por .card-like-section h2 si se usa esa clase */
+    font-size: 1.375rem; /* 22px */
+    /* Otros estilos vienen de .card-like-section h2 */
+}
+
+.ticket-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
+    gap: 0.75rem 1.5rem; /* Gap vertical y horizontal */
+    margin-bottom: 1.5rem;
+}
+
+.ticket-info-grid p {
+    margin: 0; /* Quitar margen por defecto de <p> */
+    padding: 0.625rem 0.75rem; /* 10px 12px */
+    font-size: 0.9375rem; /* 15px */
+    background-color: var(--bg-color); /* Un fondo ligeramente diferente al de la tarjeta */
+    border-radius: var(--border-radius-sm);
+    border: 1px solid color-mix(in srgb, var(--border-color) 70%, transparent); /* Borde más sutil */
+    word-break: break-word;
+}
+.ticket-info-grid p strong {
+    color: var(--text-color-muted);
+    font-weight: 500;
+    margin-right: 0.375rem;
+}
+/* Para el badge de estado dentro de la rejilla de información */
+.ticket-info-grid #ticket-estado { 
+    display: inline-block; /* Para que el padding del badge funcione bien */
+}
+
+
+.ticket-description-full {
+    margin-bottom: 1.5rem;
+}
+.ticket-description-full h3 {
+    font-size: 1.125rem; /* 18px */
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+.ticket-description-full p { /* El párrafo que contiene la descripción completa */
+    background-color: var(--bg-color); 
+    padding: 1rem; /* 16px */
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    white-space: pre-wrap; 
+    line-height: 1.7; /* Mejorar legibilidad de textos largos */
+    color: var(--text-color);
+    font-size: 0.9375rem; /* 15px */
+}
+
+/* Área de Acciones del Ticket (Cambiar estado, Asignar técnico) */
+.ticket-actions-ver-ticket { /* Renombrado para evitar colisión con .ticket-actions de la tarjeta */
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+.ticket-actions-ver-ticket h3 {
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 1.25rem; /* 20px */
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+.actions-row { /* Para agrupar label/select y botón */
+    display: flex;
+    flex-wrap: wrap; /* En pantallas pequeñas, el botón puede ir abajo */
+    gap: 1rem;
+    align-items: flex-end; /* Alinea la base del select con el botón */
+    margin-bottom: 1rem;
+}
+.actions-row .form-group {
+    flex: 1 1 250px; /* Crece y tiene base de 250px */
+    margin-bottom: 0; /* Quitar margen si está en flex-end */
+}
+.actions-row .btn {
+    height: fit-content; /* Para alinear con el input/select si tienen diferente padding */
+    /* Podrías necesitar ajustar el margin-bottom del .form-group o el margin-top del .btn
+       si la alineación con flex-end no es perfecta visualmente. */
+}
+
+
+/* Estilos para la lista de comentarios */
+#comments-list {
+    margin-bottom: 1.5rem;
+}
+.comment-card {
+    background-color: var(--surface-color); 
+    border: 1px solid var(--border-color);
+    border-left-width: 4px; /* Borde izquierdo distintivo */
+    /* border-left-color se define por tipo de autor */
+    border-radius: var(--border-radius-md);
+    padding: 1rem; /* 16px */
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+    animation: fadeSlideIn 0.3s ease-out forwards;
+}
+.comment-card.comment-by-usuario { border-left-color: var(--primary-color); }
+.comment-card.comment-by-tecnico { border-left-color: var(--success-color); }
+.comment-card.comment-by-admin { border-left-color: var(--accent-color); } /* Admin podría tener un color diferente */
+.comment-card.comment-by-desconocido { border-left-color: var(--text-color-muted); }
+
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Para fechas largas o nombres largos */
+    gap: 0.5rem;
+    margin-bottom: 0.625rem; /* 10px */
+    font-size: 0.875rem; /* 14px */
+}
+.comment-author {
+    font-weight: 600;
+    color: var(--text-color);
+}
+.comment-author .author-role {
+    font-size: 0.85em; /* Relativo al tamaño del autor */
+    font-weight: 500;
+    color: var(--text-on-primary); /* Texto blanco */
+    background-color: var(--text-color-muted); /* Fondo gris para el rol */
+    padding: 0.125rem 0.375rem; /* 2px 6px */
+    border-radius: var(--border-radius-sm);
+    margin-left: 0.375rem;
+    text-transform: capitalize;
+}
+.comment-card.comment-by-tecnico .author-role { background-color: var(--success-color); }
+.comment-card.comment-by-admin .author-role { background-color: var(--accent-color); color: var(--text-color); }
+
+
+.comment-date {
+    font-size: 0.8125rem; /* 13px */
+    color: var(--text-color-muted);
+}
+
+.comment-text {
+    font-size: 0.9375rem; /* 15px */
+    line-height: 1.6;
+    color: var(--text-color);
+    white-space: pre-wrap; 
+    word-break: break-word;
+}
+
+
+#add-comment-area {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+#add-comment-area h3 {
+    font-size: 1.25rem; /* 20px */
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
